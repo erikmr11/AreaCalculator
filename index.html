@@ -1,0 +1,341 @@
+<!-- JS-Group 2 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            /* Body Padding */
+            padding-top: 70px;
+        }
+        .result {
+            /* Result Styles */
+            font-weight: bold;
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .shapeSvg {
+            /* SVG Styles */
+            max-width: 100%;
+            max-height: 300px;
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        .navbar-purple {
+            /* Navbar Color */
+            background-color: #564e5e !important;
+        }
+        .navbar-toggler {
+            /* Toggler Color */
+            background-color: #fcfcfcc5 !important;
+            color: #564e5e;
+        }
+        .nav-link-purple {
+            /* Link Color */
+            color: #ffffff !important;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link-purple:hover,
+        .nav-link-purple.active {
+        /* Hover and Selected Color */
+        color: #ffa500 !important; 
+        text-decoration: none; 
+        }
+
+        .navbar-brand{
+            color: #ffffff !important;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .nav{
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-toggler {
+            /* Toggler Color */
+            background-color: #ebeae2c5 !important;
+            border: none; 
+            padding: 0; 
+            width: 30px; 
+            height: 30px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s; /*smooth animation */
+          }
+          
+          .navbar-toggler span {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s; /*smooth animation */
+          }
+          
+          .navbar-toggler span::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 8px 0 8px; 
+            border-color: transparent transparent transparent transparent; 
+            transition: border-width 0.3s, border-color 0.3s; /*smooth animation */
+          }
+          
+          .navbar-toggler span::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff; /* Adjust color as needed */
+            transition: width 0.3s, height 0.3s; /* Transition for smooth animation */
+          }
+          
+          .navbar-toggler.collapsed span {
+            transform: rotate(0deg);
+          }
+          
+          .navbar-toggler.collapsed span::before {
+            border-width: 8px 8px 8px 8px; 
+            border-color: transparent transparent transparent transparent; 
+          }
+          
+          .navbar-toggler.collapsed span::after {
+            width: 12px; 
+            height: 12px; 
+          }
+          .nav-link-selected {
+            color: #ffa500 !important;
+        }
+               
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-purple fixed-top">
+        <!-- Navbar Brand -->
+        <a class="navbar-brand" href="#" onclick="displayForm('default')">Geometry Area Calculator</a>
+        <!-- Toggler Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navbar Menu -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <!-- Circle Item -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-purple" href="#" onclick="displayForm('circle')">Circle</a>
+                </li>
+                <!-- Triangle Item -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-purple" href="#" onclick="displayForm('triangle')">Triangle</a>
+                </li>
+                <!-- Square Item -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-purple" href="#" onclick="displayForm('square')">Square</a>
+                </li>
+                <!-- Rectangle Item -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-purple" href="#" onclick="displayForm('rectangle')">Rectangle</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Content Container -->
+    <div class="container">
+        <!-- Default Content -->
+        <div id="default" class="mt-5">
+            <h5>In this section, we are going to find the Area of some two-dimensional shapes</h5>
+            <p>You can click on any shape above:</p>
+        </div>
+        <!-- Circle Form -->
+        <div id="circle" class="d-none mt-5">
+            <h5>Circle</h5>
+            <label for="circleRadius">Radius</label>
+            <input id="circleRadius" class="form-control" type="text" placeholder="Enter the radius">
+            <button class="btn btn-warning mt-3" onclick="calculateCircleArea()">Calculate Area</button>
+            <br>
+            <label class="mt-3" for="circleResult">Result:</label>
+            <div id="circleResult" class="result"></div>
+            <!-- Circle SVG -->
+            <svg id="circleSvg" class="shapeSvg" viewbox="0 0 100 100">
+                <circle id="circleShape" cx="50" cy="50" r="40" stroke="black" stroke-width="0.3" fill="transparent" />
+            </svg>
+        </div>
+        <!-- Triangle Form -->
+        <div id="triangle" class="d-none mt-5">
+            <h5>Triangle</h5>
+            <label for="triangleSideA">Side A</label>
+            <input id="triangleSideA" class="form-control" type="text" placeholder="Enter side A">
+            <label for="triangleSideB">Side B</label>
+            <input id="triangleSideB" class="form-control" type="text" placeholder="Enter side B">
+            <label for="triangleSideC">Side C</label>
+            <input id="triangleSideC" class="form-control" type="text" placeholder="Enter side C">
+            <button class="btn btn-warning mt-3" onclick="calculateTriangleArea()">Calculate Area</button>
+            <br>
+            <label class="mt-3" for="triangleResult">Result:</label>
+            <div id="triangleResult" class="result"></div>
+            <!-- Triangle SVG -->
+            <svg id="triangleSvg" class="shapeSvg" viewbox="0 0 100 100">
+                <polygon id="triangleShape" points="50,10 10,90 90,90" stroke="black" stroke-width="0.3" fill="transparent" />
+            </svg>
+        </div>
+        <!-- Square Form -->
+        <div id="square" class="d-none mt-5">
+            <h5>Square</h5>
+            <label for="squareSide">Side</label>
+            <input id="squareSide" class="form-control" type="text" placeholder="Enter the side">
+            <button class="btn btn-warning mt-3" onclick="calculateSquareArea()">Calculate Area</button>
+            <br>
+            <label class="mt-3" for="squareResult">Result:</label>
+            <div id="squareResult" class="result"></div>
+            <!-- Square SVG -->
+            <svg id="squareSvg" class="shapeSvg" viewbox="0 0 100 100">
+                <rect id="squareShape" x="25" y="25" width="50" height="50" stroke="black" stroke-width="0.3" fill="transparent" />
+            </svg>
+        </div>
+        <!-- Rectangle Form -->
+        <div id="rectangle" class="d-none mt-5">
+            <h5>Rectangle</h5>
+            <label for="rectangleWidth">Width</label>
+            <input id="rectangleWidth" class="form-control" type="text" placeholder="Enter the width">
+            <label for="rectangleHeight">Height</label>
+            <input id="rectangleHeight" class="form-control" type="text" placeholder="Enter the height">
+            <button class="btn btn-warning mt-3" onclick="calculateRectangleArea()">Calculate Area</button>
+            <br>
+            <label class="mt-3" for="rectangleResult">Result:</label>
+            <div id="rectangleResult" class="result"></div>
+            <!-- Rectangle SVG -->
+            <svg id="rectangleSvg" class="shapeSvg" viewbox="0 0 100 100">
+                <rect id="rectangleShape" x="25" y="25" width="74" height="36" stroke="black" stroke-width="0.3" fill="transparent" />
+            </svg>
+        </div>
+    </div>
+    
+    <!-- Main Script -->
+    <script>
+        // Wait for page load
+        document.addEventListener('DOMContentLoaded', function(){
+            displayForm('default');
+        });
+    
+        // Form Switcher
+        function displayForm(id) {
+            let forms = ['circle', 'triangle', 'square', 'rectangle', 'default'];
+            forms.forEach(function(form) {
+                document.getElementById(form).classList.add('d-none');
+                // Remove selected state from all nav links
+                let navLink = document.querySelector(`a[onclick="displayForm('${form}')"]`);
+                if (navLink && !navLink.classList.contains('navbar-brand')) {
+                    navLink.classList.remove('nav-link-selected');
+                }
+            });
+    
+            // Add selected state to selected nav link
+            let selectedNavLink = document.querySelector(`a[onclick="displayForm('${id}')"]`);
+            if (selectedNavLink && !selectedNavLink.classList.contains('navbar-brand')) {
+                selectedNavLink.classList.add('nav-link-selected');
+            }
+    
+            document.getElementById(id).classList.remove('d-none');
+        }
+        // Calculate Area
+        // Calculate Circle 
+        function calculateCircleArea() {
+            let radius = parseFloat(document.getElementById('circleRadius').value.trim());
+            let result = Math.PI * Math.pow(radius, 2);
+            document.getElementById('circleResult').innerText = result.toFixed(2);
+            adjustCircle(radius);
+        }
+    
+         // Calculate Triangle
+         function calculateTriangleArea() {
+            let sideA = parseFloat(document.getElementById('triangleSideA').value);
+            let sideB = parseFloat(document.getElementById('triangleSideB').value);
+            let sideC = parseFloat(document.getElementById('triangleSideC').value);
+            
+            // Check if it forms a valid triangle
+            if (sideA + sideB > sideC && sideB + sideC > sideA && sideC + sideA > sideB) {
+                let s = (sideA + sideB + sideC) / 2;
+                let result = Math.sqrt(s*(s - sideA)*(s - sideB)*(s - sideC));
+                document.getElementById('triangleResult').innerText = result.toFixed(2);
+                adjustTriangle(sideA, sideB, sideC);
+            } else {
+                document.getElementById('triangleResult').innerText = 'Invalid triangle';
+            }
+        }
+    
+        // Calculate Square 
+        function calculateSquareArea() {
+            let side = parseFloat(document.getElementById('squareSide').value.trim());
+            let result = Math.pow(side, 2);
+            document.getElementById('squareResult').innerText = result.toFixed(2);
+            adjustSquare(side);
+        }
+    
+        // Calculate Rectangle 
+        function calculateRectangleArea() {
+            let width = parseFloat(document.getElementById('rectangleWidth').value.trim());
+            let height = parseFloat(document.getElementById('rectangleHeight').value.trim());
+            let result = width * height;
+            document.getElementById('rectangleResult').innerText = result.toFixed(2);
+            adjustRectangle(width, height);
+        }
+    
+        // Adjust Circle
+        function adjustCircle(radius) {
+            let circleShape = document.getElementById('circleShape');
+            circleShape.setAttribute('r', 40 * radius / Math.max(radius));
+        }
+    
+        // Adjust Triangle
+        function adjustTriangle(sideA, sideB, sideC) {
+            let triangleShape = document.getElementById('triangleShape');
+            let points = `50,${100 - (100 * sideA) / sideB} 0,100 ${sideB},100`;
+            triangleShape.setAttribute('points', points);
+        }
+    
+        // Adjust Square
+        function adjustSquare(side) {
+            let squareShape = document.getElementById('squareShape');
+            let newSize = 50 * side / Math.max(side);
+            squareShape.setAttribute('width', newSize);
+            squareShape.setAttribute('height', newSize);
+            squareShape.setAttribute('x', (100 - newSize) / 2);
+            squareShape.setAttribute('y', (100 - newSize) / 2);
+        }
+    
+        // Adjust Rectangle
+        function adjustRectangle(width, height) {
+            let rectangleShape = document.getElementById('rectangleShape');
+            let scaledWidth = 100 * width / Math.max(width, height);
+            let scaledHeight = 100 * height / Math.max(width, height);
+            rectangleShape.setAttribute('width', scaledWidth);
+            rectangleShape.setAttribute('height', scaledHeight);
+            rectangleShape.setAttribute('x', (100 - scaledWidth) / 2);
+            rectangleShape.setAttribute('y', (100 - scaledHeight) / 2);
+        }
+    </script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.3/math.min.js"></script>
+</body>
+</html>
